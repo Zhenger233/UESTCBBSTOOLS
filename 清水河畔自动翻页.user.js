@@ -13,8 +13,9 @@
     var xmlhttp = new XMLHttpRequest();
     var p = 2;
     var thisurl = window.location.href;
-    var xi1s=document.getElementsByClassName('xi1');
-    var maxp = Math.ceil((Number(xi1s[xi1s.length-1].innerText) + 1) / 20);
+    var maxp;
+    if(document.getElementsByClassName('nxt').length==0)maxp=1;
+    else maxp=+document.getElementsByClassName('nxt')[0].previousElementSibling.innerText.replace(' / ','').replace(' 页','');
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             document.getElementById('postlistreply').previousElementSibling.appendChild(new DOMParser().parseFromString(xmlhttp.responseText, 'text/html').getElementById('postlist'));
@@ -23,7 +24,7 @@
     var mysend = function mysend() {
         console.log('send', p);
         if (p <= maxp) {
-            xmlhttp.open('GET', thisurl + '&page=' + String(p++), false);
+            xmlhttp.open('GET', thisurl.replace(/&page=[0-9]*/,'').replace(/#.*/,'') + '&page=' + String(p++), false);
             xmlhttp.send();
         }
     };
