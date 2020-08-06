@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         清水河畔自动翻页
 // @namespace    http://tampermonkey.net/
-// @version      0.1.1
+// @version      0.1.2
 // @description  清水河畔帖子详情页面下滑至底部自动翻页
 // @author       Zhenger233
 // @match        http://bbs.uestc.edu.cn/forum.php?mod=viewthread*
@@ -11,7 +11,8 @@
 (function() {
     'use strict';
     var xmlhttp = new XMLHttpRequest();
-    var p = 2;
+    var argspage=window.location.search.substr(1).match(new RegExp("(^|&)" + 'page' + "=([^&]*)(&|$)", "i"));
+    var p = argspage==null?1:+argspage[2];
     var thisurl = window.location.href;
     var maxp;
     if(document.getElementsByClassName('nxt').length==0)maxp=1;
@@ -22,9 +23,9 @@
         }
     };
     var mysend = function mysend() {
-        console.log('send', p);
-        if (p <= maxp) {
-            xmlhttp.open('GET', thisurl.replace(/&page=[0-9]*/,'').replace(/#.*/,'') + '&page=' + String(p++), false);
+        if (p < maxp) {
+            console.log('send', p);
+            xmlhttp.open('GET', thisurl.replace(/&page=[0-9]*/,'').replace(/#.*/,'') + '&page=' + String(++p), false);
             xmlhttp.send();
         }
     };
