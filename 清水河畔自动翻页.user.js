@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         清水河畔工具
 // @namespace    https://greasyfork.org/zh-CN/users/672362-zhenger233
-// @version      0.2
+// @version      0.2.1
 // @description  1.清水河畔帖子详情页面下滑至底部自动翻页
 // @description  2.黑名单
 // @author       Zhenger233
-// @match        http://bbs.uestc.edu.cn/forum.php?mod=viewthread*
+// @match        *://bbs.uestc.edu.cn/forum.php?mod=viewthread*
 // @grant        none
 // ==/UserScript==
 
